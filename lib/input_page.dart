@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reusable_card.dart';
 import 'icon_content.dart';
+import 'constants.dart';
 
-const activeCardColour = Color(0xFF31395D);
-const bottomContainerHeight = 80.0;
-const bottomContainerColor = Color(0xFF10102B);
-const inActiveCardColor = Color(0xFF10102B);
-enum Gender{male,female}
 class InputPage extends StatefulWidget {
   const InputPage({super.key});
 
@@ -17,8 +13,7 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
-  Color maleCardColor=inActiveCardColor;
-  Color femaleCardColor=inActiveCardColor;
+  int height = 180;
 
   @override
   Widget build(BuildContext context) {
@@ -35,42 +30,78 @@ class _InputPageState extends State<InputPage> {
               child: Row(
                 children: [
                   Expanded(
-                    child: GestureDetector(
-                      onTap: () {
+                    child: ReusableCard(
+                      onTapped: () {
                         setState(() {
-                          selectedGender=Gender.male;
+                          selectedGender = Gender.male;
                         });
                       },
-                      child: ReusableCard(
-                        colour: selectedGender==Gender.male?activeCardColour:inActiveCardColor,
-                        cardChild: const IconContent(
-                          myIcon: FontAwesomeIcons.mars,
-                          iconText: 'MALE',
-                        ),
+                      colour: selectedGender == Gender.male
+                          ? activeCardColour
+                          : inActiveCardColor,
+                      cardChild: const IconContent(
+                        myIcon: FontAwesomeIcons.mars,
+                        iconText: 'MALE',
                       ),
                     ),
                   ),
                   Expanded(
-                    child: GestureDetector(
-                      onTap: (){
+                    child: ReusableCard(
+                      onTapped: () {
                         setState(() {
-                          selectedGender=Gender.female;
+                          selectedGender = Gender.female;
                         });
                       },
-                      child: ReusableCard(
-                        colour: selectedGender==Gender.female?activeCardColour:inActiveCardColor,
-                        cardChild: const IconContent(
-                            myIcon: FontAwesomeIcons.venus, iconText: "FEMALE"),
-                      ),
+                      colour: selectedGender == Gender.female
+                          ? activeCardColour
+                          : inActiveCardColor,
+                      cardChild: const IconContent(
+                          myIcon: FontAwesomeIcons.venus, iconText: "FEMALE"),
                     ),
                   ),
                 ],
               ),
             ),
-            const Expanded(
+            Expanded(
               child: ReusableCard(
-                colour: inActiveCardColor,
-              ),
+                  colour: inActiveCardColor,
+                  cardChild: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("HEIGHT"),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.baseline,
+                        textBaseline: TextBaseline.alphabetic,
+                        children: [
+                          Text(height.toString(),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 60.0)),
+                          Text("cm",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 20.0,
+                              )),
+                        ],
+                      ),
+                      Slider(
+                        value: height.toDouble(),
+                        min: 120.0,
+                        max: 220.0,
+                        activeColor: Colors.purple,
+                        inactiveColor: Colors.blueGrey,
+                        onChanged: (double newValue) {
+                          setState(() {
+                            height = newValue.round();
+                          });
+                        },
+                      )
+                    ],
+                  )),
             ),
             const Expanded(
               child: Row(
