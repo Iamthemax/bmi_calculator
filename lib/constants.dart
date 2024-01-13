@@ -7,6 +7,7 @@ const inActiveCardColor = Color(0xFF10102B);
 enum Gender{male,female}
 const labelTextStyle=TextStyle(
   fontSize: 18.0,
-  color: Colors.white
+  color: Colors.white,
+    fontWeight: FontWeight.w900
 );
 

@@ -1,10 +1,11 @@
+import 'package:bmi_calculator/results_page.dart';
 import 'package:flutter/material.dart';
+
 import 'input_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -27,6 +28,10 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(backgroundColor: Color(0xFF10102B),titleTextStyle: TextStyle(color: Colors.white)),
       ),
       home: InputPage(),
+      initialRoute: '/',
+      routes: {
+        '/result_page':(context)=>ResultPage()
+      },
     );
 }
 }
